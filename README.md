@@ -4,7 +4,7 @@
 ![PHP](https://img.shields.io/badge/PHP-7.3-blue.svg)
 [![MIT](https://img.shields.io/badge/License-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
-# Description
+## Description
 
 Helper tool to convert Autodesk Revit API CHM file to [Dash](http://kapeli.com/) documentation for comfortable local or mobile browsing and without CHM viewer installed.
 
@@ -26,6 +26,7 @@ Helper tool to convert Autodesk Revit API CHM file to [Dash](http://kapeli.com/)
     ```
     php index.php --out=./test/adsk-revit-api.docset --id='adsk-revit' --name='Autodesk Revit' ./RevitAPI-2021-1.chm
     ```
+8. Double clicking on `adsk-revit-api.docset`to open the DocSet.
 
 ## License
 
