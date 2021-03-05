@@ -24,7 +24,7 @@ Helper tool to convert Autodesk Revit API CHM file to [Dash](http://kapeli.com/)
 6. Install dependencies, so run `composer install` in your terminal
 7. Run this project
     ```
-    php index.php --out=./test/revit-api-2021-1.docset --id=revit --name='Revit 2021 test' ./RevitAPI-2021-1.chm
+    php index.php --out=./test/adsk-revit-api.docset --id='adsk-revit' --name='Autodesk Revit' ./RevitAPI-2021-1.chm
     ```
 
 ## License
