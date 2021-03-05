@@ -28,6 +28,13 @@ use \CHMLib\Entry;
 class DocSet
 {
     /**
+     * The docSet folder name without extension.
+     * 
+     * @var string
+     */
+    private $name;
+
+    /**
      * The full path of the docSet folder.
      * 
      * @var string
@@ -63,6 +70,7 @@ class DocSet
     public function __construct(Configuration $configuration)
     {
         $this->configuration = $configuration;
+        $this->name = $configuration->getIdentifier();
     }
 
     /**
@@ -74,7 +82,7 @@ class DocSet
      */
     public function initialize(string $basePath, string $chmPath)
     {
-        $this->path = Path::join($basePath, $this->configuration->getIdentifier() . '.docset');
+        $this->path = Path::join($basePath, $this->name . '.docset');
         $contentFolder = Util::getContentPath($this->path);
 
         if(!\mkdir($contentFolder, 0777, true))
@@ -93,6 +101,18 @@ class DocSet
         $content = $this->configuration->toXML();
 
         \file_put_contents($filename, $content);
+        echo "\nAll done.\n";
+    }
+
+    private function buildIcons()
+    {
+        echo "\nStart building icons ... \n";
+        $filenameSmall = Path::join($this->path, 'icon.png');
+        $filenameLarge = Path::join($this->path, 'icon@2x.png');
+
+        Util::genImageFromBase64(Icon::SMALL(), $filenameSmall);
+        Util::genImageFromBase64(Icon::LARGE(), $filenameLarge);
+        
         echo "\nAll done.\n";
     }
 
@@ -185,14 +205,16 @@ class DocSet
     public function finalize()
     {
         $this->setIndexPage();
+        $this->buildIcons();
         $this->buildPlist();
     }
 
-    public function rename($newName)
+    public function rename($name)
     {
-        $parent = dirname($this->path);
-        $newPath = Path::join($parent, $newName);
-        \rename($this->path, $newPath);
+        $this->name = $name;
+        // $parent = dirname($this->path);
+        // $newPath = Path::join($parent, $name);
+        // \rename($this->path, $newPath);
     }
 }
 

@@ -18,34 +18,34 @@
 // UNINTERRUPTED OR ERROR FREE.
 /////////////////////////////////////////////////////////////////////
 
-    namespace Autodesk\ADN;
+namespace Autodesk\ADN;
 
-    require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-    use CHMLib\CHM;
-    use Webmozart\PathUtil\Path;
+use CHMLib\CHM;
+use Webmozart\PathUtil\Path;
 
-    $arguments = Util::arguments($argv);
+$arguments = Util::arguments($argv);
 
-    print_r($arguments);
+print_r($arguments);
 
-    $chmFile = $arguments['input'][1];
-    $docBundleName = $arguments['name'];
-    $docBundleIdentifier = $arguments['id'];
-    $outputDir = (Path::getExtension($arguments['out'])) ? Path::getDirectory($arguments['out']) : $arguments['out'];
-    $docBundleFilename = (Path::getExtension($arguments['out'])) ? Path::getFilename($arguments['out']) : null;
+$chmFile = $arguments['input'][1];
+$docBundleName = $arguments['name'];
+$docBundleIdentifier = $arguments['id'];
+$outputDir = (Path::getExtension($arguments['out'])) ? Path::getDirectory($arguments['out']) : $arguments['out'];
+$docBundleFilename = (Path::getExtension($arguments['out'])) ? Path::getFilename($arguments['out']) : null;
 
-    //\var_dump($chmFile, $outputDir, $docBundleName, $docBundleIdentifier, $docBundleFilename);
+//\var_dump($chmFile, $outputDir, $docBundleName, $docBundleIdentifier, $docBundleFilename);
 
-    $conf = new Configuration($docBundleIdentifier, $docBundleName);
-    $docSet = new DocSet($conf);
+$conf = new Configuration($docBundleIdentifier, $docBundleName);
+$docSet = new DocSet($conf);
 
-    $basePath = $outputDir;
-    $docSet->initialize($basePath, $chmFile);
-    $docSet->extract();
-    $docSet->finalize();
+if($docBundleFilename !== null)
+    $docSet->rename(Path::getFilenameWithoutExtension($docBundleFilename));
 
-    if($docBundleFilename !== null)
-        $docSet->rename($docBundleFilename);
+$basePath = $outputDir;
+$docSet->initialize($basePath, $chmFile);
+$docSet->extract();
+$docSet->finalize();
 
 ?>

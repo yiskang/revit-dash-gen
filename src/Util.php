@@ -153,6 +153,31 @@ class Util
       }
       return $_ARG;
     }
+
+    /**
+     * Convert Base64 to image
+     * 
+     * ref: https://base64.guru/developers/php/examples/decode-image
+     */
+    public static function genImageFromBase64($str, $filename)
+    {
+        // Obtain the original content (usually binary data)
+        $result = \explode(';base64,', $str);
+        $bin = base64_decode($result[1]);
+
+        // Load GD resource from binary data
+        $im = imageCreateFromString($bin);
+
+        // Make sure that the GD library was able to load the image
+        // This is important, because you should not miss corrupted or unsupported images
+        if (!$im)
+            throw new  Exception('Base64 value is not a valid image');
+
+        // Save the GD resource as PNG in the best possible quality (no compression)
+        // This will strip any metadata or invalid contents (including, the PHP backdoor)
+        // To block any possible exploits, consider increasing the compression level
+        imagepng($im, $filename, 0);
+    }
 }
 
 ?>
