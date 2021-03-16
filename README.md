@@ -28,6 +28,11 @@ Helper tool to convert Autodesk Revit API CHM file to [Dash](http://kapeli.com/)
     ```
 8. Double clicking on `adsk-revit-api.docset`to open the DocSet.
 
+## Todo
+
+- [ ] Migrate Sqlite table to support FTS(Full Text Search) ([ref](https://blog.kapeli.com/sqlite-fts-contains-and-suffix-matches))
+- [ ] Reduce DocSet size (maybe add compressed tgz DocSet support like others)
+
 ## License
 
 This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT). Please see the [LICENSE](LICENSE) file for full details.
